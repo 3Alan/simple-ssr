@@ -27,8 +27,6 @@ app.get('*', (req, res) => {
   console.log(req.url);
   const { preloadedState, content } = ssr(initialState, req);
 
-  console.log(content, req.url);
-
   const response = template('Server Rendered Page', preloadedState, content);
   res.setHeader('Cache-Control', 'assets, max-age=604800');
   res.send(response);

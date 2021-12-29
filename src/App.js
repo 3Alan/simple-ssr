@@ -8,17 +8,11 @@ import { fetchAppsIfNeeded } from './redux/actions';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      mountVariable: 'server render'
-    };
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchAppsIfNeeded());
-    this.setState({
-      mountVariable: 'client render'
-    });
   }
 
   render() {
@@ -30,7 +24,6 @@ class App extends Component {
         {isFetching && totalapps === 0 && <h2>Loading...</h2>}
         {!isFetching && totalapps === 0 && <h2>Empty.</h2>}
         <p>{totalapps}</p>
-        <span className="123">{this.state.mountVariable}</span>
         <Routes>
           <Route path="/">
             <Route path="/list" element={<List />} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const dataList = [
@@ -20,11 +20,25 @@ const dataList = [
 ];
 
 const List = () => {
+  const [renderTip, setRenderTip] = useState('server render');
+
+  useEffect(() => {
+    setRenderTip('after hydrate client render');
+  }, []);
+
   return (
     <>
-      {dataList.map(({ name, id }) => (
-        <Link to={`/detail/${id}`}>{name}</Link>
-      ))}
+      <p>
+        查看源码的值为：server render，当前的值为：
+        <strong style={{ color: 'red' }}>{renderTip}</strong>
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {dataList.map(({ name, id }) => (
+          <div key={id}>
+            <Link to={`/detail/${id}`}>{name}</Link>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
