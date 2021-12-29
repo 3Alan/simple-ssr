@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    client: './src/client.js',
+    client: './src/client.entry.js',
     bundle: './src/bundle.js'
   },
   output: {

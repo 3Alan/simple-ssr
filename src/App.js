@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAppsIfNeeded } from '../redux/actions';
+import { Route, Routes } from 'react-router-dom';
+import Detail from './pages/Detail';
+import List from './pages/List';
+import { fetchAppsIfNeeded } from './redux/actions';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +31,12 @@ class App extends Component {
         {!isFetching && totalapps === 0 && <h2>Empty.</h2>}
         <p>{totalapps}</p>
         <span className="123">{this.state.mountVariable}</span>
+        <Routes>
+          <Route path="/">
+            <Route path="/list" element={<List />} />
+            <Route path="/detail/:id" element={<Detail />} />
+          </Route>
+        </Routes>
       </>
     );
   }
