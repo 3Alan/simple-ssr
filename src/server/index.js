@@ -2,3 +2,5 @@
 require('@babel/register');
 
 require('./app');
+
+require('./logger');

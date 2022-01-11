@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && node index.js",
+    "start": "yarn build && nodemon ./src/server/index.js",
     "build": "webpack --config webpack.config.js"
   },
   "keywords": [],
@@ -13,13 +13,15 @@
   "dependencies": {
     "@babel/register": "^7.8.6",
     "express": "^4.17.1",
+    "nodemon": "^2.0.15",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
     "react-router-config": "5.1.1",
     "react-router-dom": "6.2.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "winston": "^3.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
