@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const dataList = [
@@ -21,6 +22,7 @@ const dataList = [
 
 const List = () => {
   const [renderTip, setRenderTip] = useState('server render');
+  const apps = useSelector(state => state.apps);
 
   useEffect(() => {
     setRenderTip('after hydrate client render');
@@ -33,6 +35,7 @@ const List = () => {
         <strong style={{ color: 'red' }}>{renderTip}</strong>
       </p>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {JSON.stringify(apps)}
         {dataList.map(({ name, id }) => (
           <div key={id}>
             <Link to={`/detail/${id}`}>{name}</Link>
@@ -41,6 +44,14 @@ const List = () => {
       </div>
     </>
   );
+};
+
+List.getServerSideProps = context => {
+  console.log(context);
+
+  return {
+    serverData: 'hahah'
+  };
 };
 
 export default List;
