@@ -1,23 +1,16 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom/server';
 
 import { Provider } from 'react-redux';
 import configureStore from './redux/configureStore';
-import App from './App';
+import { renderMatches } from 'react-router-dom';
 
-module.exports = function render(initialState, req) {
+module.exports = function render(initialState, matches) {
   // Configure the store with the initial state provided
   const store = configureStore(initialState);
 
   // render the App store static markup ins content variable
-  let content = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url}>
-        <App />
-      </StaticRouter>
-    </Provider>
-  );
+  let content = renderToString(<Provider store={store}>{renderMatches(matches)}</Provider>);
 
   // Get a copy of store data to create the same store on client side
   const preloadedState = store.getState();

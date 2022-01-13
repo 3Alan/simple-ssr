@@ -1,15 +1,16 @@
+import React from 'react';
 import Detail from './pages/Detail';
 import List from './pages/List';
 
-export default [
+const routes = [
   {
     path: '/list',
-    exact: true,
-    component: List
+    element: <List />
   },
   {
     path: '/detail/:id',
-    exact: true,
-    component: Detail
+    element: <Detail />
   }
 ];
+
+export default routes;

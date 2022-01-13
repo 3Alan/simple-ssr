@@ -1,43 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import Detail from './pages/Detail';
-import List from './pages/List';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRoutes } from 'react-router-dom';
 import { fetchAppsIfNeeded } from './redux/actions';
+import routes from './routes';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+function App() {
+  const element = useRoutes(routes);
+  const dispatch = useDispatch();
+  const { isFetching, apps } = useSelector(state => state);
 
-  componentDidMount() {
-    const { dispatch } = this.props;
+  useEffect(() => {
     dispatch(fetchAppsIfNeeded());
-  }
+  }, []);
 
-  render() {
-    const { isFetching, apps } = this.props;
-    const totalapps = apps.length;
+  return (
+    <>
+      {isFetching && apps.length === 0 && <h2>Loading...</h2>}
+      {!isFetching && apps.length === 0 && <h2>Empty.</h2>}
+      <p>{apps.length}</p>
+      {element}
+    </>
+  );
+}
 
-    return (
-      <>
-        {isFetching && totalapps === 0 && <h2>Loading...</h2>}
-        {!isFetching && totalapps === 0 && <h2>Empty.</h2>}
-        <p>{totalapps}</p>
-        <Routes>
-          <Route path="/">
-            <Route path="/list" element={<List />} />
-            <Route path="/detail/:id" element={<Detail />} />
-          </Route>
-        </Routes>
-      </>
-    );
-  }
-}
-function mapStateToProps({ isFetching, apps }) {
-  return {
-    isFetching,
-    apps
-  };
-}
-export default connect(mapStateToProps)(App);
+export default App;

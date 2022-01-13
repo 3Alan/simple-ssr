@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 const dataList = [
   {
@@ -38,7 +37,7 @@ const List = () => {
         {JSON.stringify(apps)}
         {dataList.map(({ name, id }) => (
           <div key={id}>
-            <Link to={`/detail/${id}`}>{name}</Link>
+            <a href={`/detail/${id}`}>{name}</a>
           </div>
         ))}
       </div>
