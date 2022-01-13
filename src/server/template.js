@@ -1,9 +1,8 @@
-export default function template(title, initialState = {}, content = '') {
+export default function template(initialState = {}, content = '') {
   return `<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="utf-8">
-        <title> ${title} </title>
         <link rel="stylesheet" href="/assets/style.css">
       </head>
       <body>

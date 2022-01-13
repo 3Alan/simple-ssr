@@ -4,11 +4,11 @@ import List from './pages/List';
 
 const routes = [
   {
-    path: '/list',
+    path: '/',
     element: <List />
   },
   {
-    path: '/detail/:id',
+    path: '/detail/:name',
     element: <Detail />
   }
 ];

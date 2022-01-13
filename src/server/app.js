@@ -39,19 +39,19 @@ app.get('*', (req, res) => {
   logger.info(`node log: ${req.url}`);
 
   const matchedComponent = matchRoutes(routes, req.url);
+  let reduxState = initialState;
 
-  console.log();
+  if (matchedComponent) {
+    const { getServerSideProps } = matchedComponent[0].route.element.type;
+    if (getServerSideProps) {
+      const res = getServerSideProps();
+      reduxState = { ...reduxState, ...res };
+    }
+  }
 
-  // if (matchedComponent) {
-  //   const { getServerSideProps } = matchedComponent[0].route.element.type;
-  //   const res = getServerSideProps('input');
-  //   console.log(res, '------');
-  // }
-  console.log(matchedComponent[0], 'server match component');
+  const { preloadedState, content } = ssr(reduxState, matchedComponent);
 
-  const { preloadedState, content } = ssr(initialState, matchedComponent);
-
-  const response = template('Server Rendered Page', preloadedState, content);
+  const response = template(preloadedState, content);
   res.setHeader('Cache-Control', 'assets, max-age=604800');
   res.send(response);
 });

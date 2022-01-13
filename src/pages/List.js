@@ -1,43 +1,35 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
-
-const dataList = [
-  {
-    name: 'detail1',
-    id: 1,
-    content: 'detail1 content'
-  },
-  {
-    name: 'detail2',
-    id: 2,
-    content: 'detail2 content'
-  },
-  {
-    name: 'detail3',
-    id: 3,
-    content: 'detail3 content'
-  }
-];
 
 const List = () => {
   const [renderTip, setRenderTip] = useState('server render');
   const apps = useSelector(state => state.apps);
+  const serverData = useSelector(state => state.serverData);
 
   useEffect(() => {
-    setRenderTip('after hydrate client render');
+    setRenderTip('after hydrate client render in useEffect');
   }, []);
 
   return (
     <>
+      <Helmet>
+        <title>List Page</title>
+      </Helmet>
       <p>
         查看源码的值为：server render，当前的值为：
         <strong style={{ color: 'red' }}>{renderTip}</strong>
       </p>
+
+      <h4>
+        data from getServerSideProps <strong style={{ color: 'red' }}>{serverData}</strong>{' '}
+      </h4>
+
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {JSON.stringify(apps)}
-        {dataList.map(({ name, id }) => (
+        <h4>data from server fetch</h4>
+        {apps.map(({ name, id }) => (
           <div key={id}>
-            <a href={`/detail/${id}`}>{name}</a>
+            <a href={`/detail/${name}`}>{name}</a>
           </div>
         ))}
       </div>
@@ -45,11 +37,9 @@ const List = () => {
   );
 };
 
-List.getServerSideProps = context => {
-  console.log(context);
-
+List.getServerSideProps = store => {
   return {
-    serverData: 'hahah'
+    serverData: 'getServerSideProps Data'
   };
 };
 

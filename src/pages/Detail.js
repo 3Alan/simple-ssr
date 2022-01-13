@@ -1,10 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
-const Detail = ({ content }) => {
-  const { id } = useParams();
-  const apps = useSelector(state => state.apps);
+const Detail = () => {
+  const { name } = useParams();
 
   const submitLog = () => {
     fetch('/log.gif?action=button');
@@ -12,11 +11,11 @@ const Detail = ({ content }) => {
 
   return (
     <div>
-      <div>{id}</div>
-      <div>{content}</div>
+      <Helmet>
+        <title>{name}</title>
+      </Helmet>
+      <div>{name}</div>
       <button onClick={submitLog}>submit error log</button>
-
-      {JSON.stringify(apps)}
     </div>
   );
 };
