@@ -1,5 +1,4 @@
 ## 涉及知识点
-- react-router-config
 - hydrate
 
 ## reference
