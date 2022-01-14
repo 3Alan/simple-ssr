@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const REQUEST_APPS = 'REQUEST_APPS';
 export const RECEIVE_APPS = 'RECEIVE_APPS';
 
@@ -17,7 +19,7 @@ function receiveApps(json) {
 function fetchApps() {
   return dispatch => {
     dispatch(requestApps());
-    return fetch(`assets/data.json`)
+    return axios(`/assets/data.json`)
       .then(response => response.json())
       .then(json => dispatch(receiveApps(json)));
   };

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 const List = () => {
   const [renderTip, setRenderTip] = useState('server render');
   const apps = useSelector(state => state.apps);
-  const serverData = useSelector(state => state.serverData);
 
   useEffect(() => {
     setRenderTip('after hydrate client render in useEffect');
@@ -21,10 +20,6 @@ const List = () => {
         <strong style={{ color: 'red' }}>{renderTip}</strong>
       </p>
 
-      <h4>
-        data from getServerSideProps <strong style={{ color: 'red' }}>{serverData}</strong>{' '}
-      </h4>
-
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <h4>data from server fetch</h4>
         {apps.map(({ name, id }) => (
@@ -35,12 +30,6 @@ const List = () => {
       </div>
     </>
   );
-};
-
-List.getServerSideProps = store => {
-  return {
-    serverData: 'getServerSideProps Data'
-  };
 };
 
 export default List;

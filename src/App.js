@@ -13,11 +13,15 @@ function App() {
     dispatch(fetchAppsIfNeeded());
   }, []);
 
+  if (!element) {
+    return <div>404</div>;
+  }
+
   return (
     <>
       {isFetching && apps.length === 0 && <h2>Loading...</h2>}
       {!isFetching && apps.length === 0 && <h2>Empty.</h2>}
-      <p>{apps.length}</p>
+      <div>Navigator</div>
       {element}
     </>
   );

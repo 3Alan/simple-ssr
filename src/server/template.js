@@ -13,7 +13,7 @@ export default function template(initialState = {}, content = '') {
         <script>
           window.__STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script src="/assets/client.js"></script>
+        <script src="/assets/bundle/client.js"></script>
       </body>
     </html>
     `;
