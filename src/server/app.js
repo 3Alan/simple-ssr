@@ -18,7 +18,7 @@ app.use('/media', express.static(path.resolve(__dirname, '../../media')));
 app.disable('x-powered-by');
 // start the server
 app.listen(port, () => {
-  console.log(`Listening on port: ${port}`);
+  console.log(`Listening on port: http://localhost:${port}`);
 });
 
 let initialState = {
