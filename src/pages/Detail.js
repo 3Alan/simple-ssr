@@ -9,7 +9,7 @@ const Detail = () => {
   const serverData = useSelector(state => state.serverData);
 
   const submitLog = () => {
-    axios('/log.gif?action=button');
+    new Image().src = '/log.gif?action=button';
   };
 
   return (
