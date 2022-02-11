@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPeopleList } from '../redux/actions';
 
 const List = () => {
-  const [renderTip, setRenderTip] = useState('server render');
-  const apps = useSelector(state => state.apps);
+  const { peopleList = [], tip } = useSelector(state => state);
+  const [renderTip, setRenderTip] = useState(tip);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setRenderTip('after hydrate client render in useEffect');
+    dispatch(getPeopleList());
+    setRenderTip('客户端数据');
   }, []);
 
   return (
@@ -16,13 +20,13 @@ const List = () => {
         <title>List Page</title>
       </Helmet>
       <p>
-        查看源码的值为：server render，当前的值为：
+        查看源码的值为：服务端数据，当前的值为：
         <strong style={{ color: 'red' }}>{renderTip}</strong>
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <h4>data from server fetch</h4>
-        {apps.map(({ name, id }) => (
+        <h4>下面是客户端渲染的列表</h4>
+        {peopleList.map(({ name, id }) => (
           <div key={id}>
             <a href={`/detail/${name}`}>{name}</a>
           </div>
@@ -30,6 +34,12 @@ const List = () => {
       </div>
     </>
   );
+};
+
+List.getServerSideProps = () => {
+  return {
+    tip: '服务端数据'
+  };
 };
 
 export default List;

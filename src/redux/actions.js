@@ -1,43 +1,17 @@
 import axios from 'axios';
 
-export const REQUEST_APPS = 'REQUEST_APPS';
-export const RECEIVE_APPS = 'RECEIVE_APPS';
+export const SET_PEOPLE_LIST = 'SET_PEOPLE_LIST';
 
-function requestApps() {
+function setPeopleList(payload) {
   return {
-    type: REQUEST_APPS
+    type: SET_PEOPLE_LIST,
+    payload
   };
 }
 
-function receiveApps(json) {
-  return {
-    type: RECEIVE_APPS,
-    apps: json
-  };
-}
-
-function fetchApps() {
-  return dispatch => {
-    dispatch(requestApps());
-    return axios(`/assets/data.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveApps(json)));
-  };
-}
-
-function shouldFetchApps(state) {
-  const apps = state.apps;
-  if (apps.length == 0) {
-    return true;
-  } else if (state.isFetching) {
-    return false;
-  }
-}
-
-export function fetchAppsIfNeeded() {
-  return (dispatch, getState) => {
-    if (shouldFetchApps(getState())) {
-      return dispatch(fetchApps());
-    }
+export function getPeopleList() {
+  return async dispatch => {
+    const res = await axios('/assets/data.json');
+    dispatch(setPeopleList({ peopleList: res.data }));
   };
 }

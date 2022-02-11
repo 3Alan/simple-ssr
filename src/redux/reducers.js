@@ -1,17 +1,15 @@
-import { REQUEST_APPS, RECEIVE_APPS } from './actions';
+import { SET_PEOPLE_LIST } from './actions';
 
-function apps(state = { isFetching: false, apps: [] }, action) {
+function peopleList(state = {}, action) {
   switch (action.type) {
-    case REQUEST_APPS:
+    case SET_PEOPLE_LIST:
       return {
         ...state,
-        isFetching: true
+        ...action.payload
       };
-    case RECEIVE_APPS:
-      return { ...state, isFetching: false, apps: action.apps };
     default:
       return state;
   }
 }
 
-export default apps;
+export default peopleList;

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
@@ -20,16 +19,16 @@ const Detail = () => {
       <div>{name}</div>
 
       <h4>
-        <strong style={{ color: 'red' }}>{serverData}</strong>{' '}
+        <strong style={{ color: 'red' }}>{serverData}</strong>
       </h4>
-      <button onClick={submitLog}>submit error log</button>
+      <button onClick={submitLog}>上次错误日志</button>
     </div>
   );
 };
 
 Detail.getServerSideProps = () => {
   return {
-    serverData: 'content init from serverSide'
+    serverData: '一些服务端渲染的内容xxxxxxxxxxxx'
   };
 };
 
