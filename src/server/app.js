@@ -42,9 +42,10 @@ app.get('*', (req, res) => {
     }
   }
 
-  const { preloadedState, content } = ssr(initialState, matchedComponent);
+  const { preloadedState, content, scriptTags } = ssr(initialState, matchedComponent);
 
-  const response = template(preloadedState, content);
+  const response = template(preloadedState, content, scriptTags);
+
   res.setHeader('Cache-Control', 'assets, max-age=604800');
   res.send(response);
 });

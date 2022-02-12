@@ -1,4 +1,4 @@
-export default function template(initialState = {}, content = '') {
+export default function template(initialState = {}, content = '', scriptTags) {
   return `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -13,7 +13,7 @@ export default function template(initialState = {}, content = '') {
         <script>
           window.__STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script src="/assets/bundle/client.js"></script>
+        ${scriptTags}
       </body>
     </html>
     `;
