@@ -11,3 +11,5 @@
 > https://itnext.io/server-side-rendering-with-react-redux-and-react-router-fa5b67d4965e
 > 
 > https://segmentfault.com/a/1190000020417285
+>
+> https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onerror
