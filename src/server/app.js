@@ -22,7 +22,7 @@ app.listen(port, () => {
 let initialState = {};
 
 app.all('/log.gif', (req, res) => {
-  logger.info(`client log from action: ${req.query.action}`);
+  logger.info(`client log: ${req.query.action}`);
   res.send('');
 });
 
