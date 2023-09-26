@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Card = () => {
-  return <div>lazy load Component</div>;
+  return <div style={{width: 200, height: 200, background: '#fcb'}}>lazy load Component</div>;
 };
 
 export default Card;

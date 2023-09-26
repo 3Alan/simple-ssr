@@ -5,6 +5,9 @@ import configureStore from './redux/configureStore';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { loadableReady } from '@loadable/component';
+import trackError from './utils/trackError';
+
+trackError();
 
 // Read the state sent with markup
 const state = window.__STATE__;

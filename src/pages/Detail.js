@@ -12,8 +12,22 @@ const Detail = () => {
   const { name } = useParams();
   const serverData = useSelector(state => state.serverData);
 
-  const submitLog = () => {
-    new Image().src = '/log.gif?action=button';
+  const submitLog = e => {
+    new Image().src = `/log.gif?action=点击位置：${JSON.stringify(
+      e.target.getBoundingClientRect()
+    )}`;
+  };
+
+  const catchErrorMessage = () => {
+    // eslint-disable-next-line no-undef
+    console.log(b);
+  };
+
+  const catchPromiseErrorMessage = () => {
+    new Promise(() => {
+      // eslint-disable-next-line no-undef
+      console.log(c);
+    });
   };
 
   const onShow = () => {
@@ -30,18 +44,23 @@ const Detail = () => {
       <h4>
         <strong style={{ color: 'red' }}>{serverData}</strong>
       </h4>
-      <button onClick={onShow}>加载</button>
+      <button onClick={submitLog}>埋点上报</button>
+      <button onClick={catchErrorMessage}>收集普通错误</button>
+      <button onClick={catchPromiseErrorMessage}>收集 Promise 错误</button>
+      <button onClick={onShow}>组件懒加载</button>
       {show && <Card />}
-
-      <button onClick={submitLog}>上次错误日志</button>
     </div>
   );
 };
 
-Detail.getServerSideProps = () => {
-  return {
-    serverData: '懒加载组件'
-  };
+Detail.getServerSideProps = async () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        serverData: '懒加载组件'
+      });
+    }, 1000);
+  });
 };
 
 export default Detail;

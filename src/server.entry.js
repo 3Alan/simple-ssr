@@ -17,7 +17,7 @@ module.exports = function render(initialState, matches) {
   // publicPath 配置公共路径
   const extractor = new ChunkExtractor({
     statsFile,
-    publicPath: '../assets/bundle'
+    publicPath: '/assets/bundle'
   });
 
   // render the App store static markup ins content variable

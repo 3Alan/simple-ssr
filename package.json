@@ -37,9 +37,11 @@
     "@loadable/webpack-plugin": "^5.15.2",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
     "eslint": "^8.6.0",
     "eslint-plugin-react": "^7.28.0",
-    "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11"
+    "mini-css-extract-plugin": "^2.7.6",
+    "webpack": "5.88.2",
+    "webpack-cli": "5.1.4"
   }
 }

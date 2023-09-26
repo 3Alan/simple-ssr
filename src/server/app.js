@@ -22,7 +22,7 @@ app.listen(port, () => {
 let initialState = {};
 
 app.all('/log.gif', (req, res) => {
-  logger.info(`client log from action: ${req.query.action}`);
+  logger.info(`client log: ${req.query.action}`);
   res.send('');
 });
 
@@ -30,14 +30,14 @@ app.get('/favicon.ico', (req, res) => {
   res.send('');
 });
 
-app.get('*', (req, res) => {
+app.get('*', async (req, res) => {
   logger.info(`node log: ${req.url}`);
 
   const matchedComponent = matchRoutes(routes, req.url);
   if (matchedComponent) {
     const { getServerSideProps } = matchedComponent[0].route.element.type;
     if (getServerSideProps) {
-      const res = getServerSideProps();
+      const res = await getServerSideProps();
       initialState = { ...initialState, ...res };
     }
   }
@@ -46,6 +46,5 @@ app.get('*', (req, res) => {
 
   const response = template(preloadedState, content, scriptTags);
 
-  res.setHeader('Cache-Control', 'assets, max-age=604800');
   res.send(response);
 });
