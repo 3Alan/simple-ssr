@@ -2,9 +2,6 @@
 - 服务端渲染
 - 日志收集
 
-## TODO
-- 懒加载
-
 ## reference
 > https://www.freecodecamp.org/news/server-side-rendering-your-react-app-in-three-simple-steps-7a82b95db82e/
 > 
