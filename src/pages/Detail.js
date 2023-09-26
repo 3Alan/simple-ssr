@@ -1,9 +1,14 @@
+import loadable from '@loadable/component';
 import React from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+const Card = loadable(() => import('../components/Card.js'), { ssr: false });
+
 const Detail = () => {
+  const [show, setShow] = useState(false);
   const { name } = useParams();
   const serverData = useSelector(state => state.serverData);
 
@@ -25,6 +30,10 @@ const Detail = () => {
     });
   };
 
+  const onShow = () => {
+    setShow(true);
+  };
+
   return (
     <div>
       <Helmet>
@@ -38,14 +47,20 @@ const Detail = () => {
       <button onClick={submitLog}>埋点上报</button>
       <button onClick={catchErrorMessage}>收集普通错误</button>
       <button onClick={catchPromiseErrorMessage}>收集 Promise 错误</button>
+      <button onClick={onShow}>组件懒加载</button>
+      {show && <Card />}
     </div>
   );
 };
 
-Detail.getServerSideProps = () => {
-  return {
-    serverData: '一些服务端渲染的内容xxxxxxxxxxxx'
-  };
+Detail.getServerSideProps = async () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        serverData: '懒加载组件'
+      });
+    }, 1000);
+  });
 };
 
 export default Detail;

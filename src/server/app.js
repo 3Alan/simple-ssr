@@ -30,21 +30,21 @@ app.get('/favicon.ico', (req, res) => {
   res.send('');
 });
 
-app.get('*', (req, res) => {
+app.get('*', async (req, res) => {
   logger.info(`node log: ${req.url}`);
 
   const matchedComponent = matchRoutes(routes, req.url);
   if (matchedComponent) {
     const { getServerSideProps } = matchedComponent[0].route.element.type;
     if (getServerSideProps) {
-      const res = getServerSideProps();
+      const res = await getServerSideProps();
       initialState = { ...initialState, ...res };
     }
   }
 
-  const { preloadedState, content } = ssr(initialState, matchedComponent);
+  const { preloadedState, content, scriptTags } = ssr(initialState, matchedComponent);
 
-  const response = template(preloadedState, content);
-  res.setHeader('Cache-Control', 'assets, max-age=604800');
+  const response = template(preloadedState, content, scriptTags);
+
   res.send(response);
 });
