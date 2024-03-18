@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-const Card = loadable(() => import('../components/Card.js'), { ssr: false });
+const Card = loadable(() => import('../components/Card.js'));
 
 const Detail = () => {
   const [show, setShow] = useState(false);
@@ -47,7 +47,9 @@ const Detail = () => {
       <button onClick={submitLog}>埋点上报</button>
       <button onClick={catchErrorMessage}>收集普通错误</button>
       <button onClick={catchPromiseErrorMessage}>收集 Promise 错误</button>
-      <button onClick={onShow}>组件懒加载</button>
+      <button onClick={onShow} onMouseOver={() => {
+        Card.preload()
+      }}>鼠标悬浮时组件懒加载</button>
       {show && <Card />}
     </div>
   );
